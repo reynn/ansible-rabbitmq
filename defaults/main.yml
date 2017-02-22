@@ -1,0 +1,32 @@
+---
+rabbitmq_package_name: rabbitmq-server
+rabbitmq_package_version: 3.6.6*
+rabbitmq_repo_base_url: https://www.rabbitmq.com
+rabbitmq_signing_key_url: "{{ rabbitmq_repo_base_url }}/rabbitmq-release-signing-key.asc"
+rabbitmq_repo_version: testing
+
+rabbitmq_system_user: rabbitmq
+rabbitmq_system_user_group: rabbitmq
+
+rabbitmq_amqp_port: 5672
+rabbitmq_memory_high_watermark: 0.4
+rabbitmq_ssl: false
+rabbitmq_ssl_port: 5671
+# rabbitmq_ssl_ca_cert:
+# rabbitmq_ssl_cert:
+# rabbitmq_ssl_key:
+
+# example vhost
+# rabbitmq_vhosts:
+#   - name: /test
+#     tracing: yes
+#   - name: /app
+rabbitmq_vhosts: []
+rabbitmq_plugins: []
+rabbitmq_users:
+  - name: admin
+    password: admin
+    vhost: /
+    configure_priv: .*
+    read_priv: .*
+    write_priv: .*

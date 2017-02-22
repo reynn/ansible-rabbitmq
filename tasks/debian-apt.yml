@@ -1,0 +1,27 @@
+---
+- name: Ensure apt-transport-https is installed
+  apt:
+    name: apt-transport-https
+    update_cache: yes
+    cache_valid_time: "{{ rabbitmq_valid_apt_cache_time }}"
+    state: latest
+  become: true
+
+- name: Add RabbitMQ GPG key
+  apt_key:
+    url: "{{ rabbitmq_signing_key_url }}"
+    state: present
+  become: true
+
+- name: Add RabbitMQ APT repository
+  apt_repository:
+    repo: "deb {{ rabbitmq_repo_base_url }}/debian/ {{ rabbitmq_repo_version }} main"
+    state: present
+  become: true
+
+- name: Install the RabbitMQ package
+  apt:
+    name: "{{ rabbitmq_package_name }}={{ rabbitmq_package_version }}"
+    state: present
+  notify: Restart RabbitMQ service
+  become: true

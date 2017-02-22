@@ -1,0 +1,15 @@
+machine:
+  python:
+    version: 2.7.12
+
+dependencies:
+  override:
+    - pip install ansible==2.2.1.0 dopy==0.3.7
+    - mv tests/ansible.cfg .
+
+test:
+  override:
+    - ssh-keygen -f ~/.ssh/file.rsa -t rsa -N ''
+    - ansible-playbook tests/test.yml -vv
+  post:
+    - ansible-playbook tests/cleanup.yml -vv
